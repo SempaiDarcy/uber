@@ -1,7 +1,7 @@
 import express, {Request, Response, Express} from "express";
 import {db} from "./db/in-memory-db";
 import {Driver} from "./drivers/types/driver";
-import {HttpStatus} from "./core/http-statuses";
+import {HttpStatus} from "./core/types/http-statuses";
 
 export const setupApp = (app: Express) => {
     app.use(express.json()); // middleware для парсинга JSON в теле запроса
