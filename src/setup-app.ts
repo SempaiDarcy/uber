@@ -59,7 +59,7 @@ export const setupApp = (app: Express) => {
         //1) проверяем приходящие данные на валидность
         const errors = vehicleInputDtoValidation(req.body)
         if (errors.length>0) {
-            res.status(HttpStatus.BadRequest).send(createErrorMessages(errors))
+            return res.status(HttpStatus.BadRequest).send(createErrorMessages(errors))
         }
         //2) создаем newDriver
         const newDriver: Driver = {
