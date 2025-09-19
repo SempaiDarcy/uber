@@ -37,7 +37,8 @@ describe('Driver API body validation check', () => {
       })
       .expect(HttpStatus.BadRequest);
 
-    expect(invalidDataSet1.body.errorMessages).toHaveLength(4);
+    expect(invalidDataSet1.body.errorsMessages).toHaveLength(4);
+
 
     const invalidDataSet2 = await request(app)
       .post('/drivers')
@@ -50,7 +51,9 @@ describe('Driver API body validation check', () => {
       })
       .expect(HttpStatus.BadRequest);
 
-    expect(invalidDataSet2.body.errorMessages).toHaveLength(4);
+
+    expect(invalidDataSet2.body.errorsMessages).toHaveLength(4);
+
 
     const invalidDataSet3 = await request(app)
       .post('/drivers')
@@ -60,7 +63,8 @@ describe('Driver API body validation check', () => {
       })
       .expect(HttpStatus.BadRequest);
 
-    expect(invalidDataSet3.body.errorMessages).toHaveLength(1);
+    expect(invalidDataSet3.body.errorsMessages).toHaveLength(1);
+
 
     // check что никто не создался
     const driverListResponse = await request(app).get('/drivers');
