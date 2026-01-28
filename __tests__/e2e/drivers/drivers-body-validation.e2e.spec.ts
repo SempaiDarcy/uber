@@ -22,12 +22,12 @@ describe('Driver API body validation check', () => {
     }
 
     beforeAll(async () => {
-        await request(app).delete('/testing/all-data').expect(HttpStatus.NoContent)
+        await request(app).delete('/api/testing/all-data').expect(HttpStatus.NoContent)
     })
 
     it('should not create driver when incorrect body passed; POST /drivers', async () => {
         const invalidDataSet1 = await request(app)
-            .post('/drivers')
+            .post('/api/drivers')
             .send({
                 ...correctTestDriverData,
                 name: '   ',
@@ -40,7 +40,7 @@ describe('Driver API body validation check', () => {
         expect(invalidDataSet1.body.errorMessages).toHaveLength(4)
 
         const invalidDataSet2 = await request(app)
-            .post('/drivers')
+            .post('/api/drivers')
             .send({
                 ...correctTestDriverData,
                 phoneNumber: '', // empty string
@@ -53,7 +53,7 @@ describe('Driver API body validation check', () => {
         expect(invalidDataSet2.body.errorMessages).toHaveLength(4);
 
         const invalidDataSet3 = await request(app)
-            .post('/drivers')
+            .post('/api/drivers')
             .send({
                 ...correctTestDriverData,
                 name: 'A', // too shot
@@ -63,7 +63,7 @@ describe('Driver API body validation check', () => {
         expect(invalidDataSet3.body.errorMessages).toHaveLength(1);
 
         // check что никто не создался
-        const driverListResponse = await request(app).get('/drivers');
+        const driverListResponse = await request(app).get('/api/drivers');
         expect(driverListResponse.body).toHaveLength(0);
     });
 })

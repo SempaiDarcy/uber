@@ -20,9 +20,9 @@ describe('Driver API', () => {
         vehicleFeatures: [],
     }
     beforeAll(async ()=>{
-        await request(app).delete('/testing/all-data').expect(HttpStatus.NoContent)
+        await request(app).delete('/api/testing/all-data').expect(HttpStatus.NoContent)
     })
-    it('should create driver; POST /drivers', async () => {
+    it('should create driver; POST /api/drivers', async () => {
         const newDriver: DriverInputDto = {
             ...testDriverData,
             name: 'Valentin',
@@ -30,36 +30,36 @@ describe('Driver API', () => {
             email: 'valentin@example.com'
         }
         await request(app)
-            .post('/drivers')
+            .post('/api/drivers')
             .send(newDriver)
             .expect(HttpStatus.Created)
     });
-    it('should return drivers list; GET /drivers ', async () => {
+    it('should return drivers list; GET /api/drivers ', async () => {
         await request(app)
-            .post('/drivers')
+            .post('/api/drivers')
             .send({...testDriverData, name: 'Another Driver'})
             .expect(HttpStatus.Created)
 
         await request(app)
-            .post('/drivers')
+            .post('/api/drivers')
             .send({...testDriverData, name: 'Another Driver2'})
             .expect(HttpStatus.Created)
 
         const driverListResponse = await request(app)
-            .get('/drivers')
+            .get('/api/drivers')
             .expect(HttpStatus.Ok)
         console.log(driverListResponse.body)
         expect(driverListResponse.body).toBeInstanceOf(Array)
         expect(driverListResponse.body.length).toBeGreaterThanOrEqual(2)
     });
-    it('should be return driver by id; GET /drivers/:id ', async () => {
+    it('should be return driver by id; GET /api/drivers/:id ', async () => {
         const createResponse = await request(app)
-            .post('/drivers')
+            .post('/api/drivers')
             .send({...testDriverData, name: "Another Driver"})
             .expect(HttpStatus.Created)
 
         const getResponse = await request(app)
-            .get(`/drivers/${createResponse.body.id}`)
+            .get(`/api/drivers/${createResponse.body.id}`)
             .expect(HttpStatus.Ok)
 
         expect(getResponse.body).toEqual({

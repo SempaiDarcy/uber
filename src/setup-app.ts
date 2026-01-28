@@ -10,9 +10,9 @@ export const setupApp = (app: Express) => {
         res.status(200).send("Hello world!");
     });
 
-    app.use('/drivers', driversRouter);
+    app.use('/api/drivers', driversRouter);
 
-    app.use('/testing', testingRouter);
+    app.use('/api/testing', testingRouter);
 
     return app;
 };
